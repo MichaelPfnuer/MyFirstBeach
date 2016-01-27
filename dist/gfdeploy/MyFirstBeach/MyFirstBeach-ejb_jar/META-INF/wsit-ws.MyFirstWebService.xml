@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <definitions 
+ xmlns="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="MyFirstWebService" targetNamespace="http://ws/" xmlns:tns="http://ws/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:fi="http://java.sun.com/xml/ns/wsit/2006/09/policy/fastinfoset/service" xmlns:tcp="http://java.sun.com/xml/ns/wsit/2006/09/policy/soaptcp/service" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" 
+ >
+    <message name="hello"/>
+    <message name="helloResponse"/>
+    <message name="findCustomerByFirstname"/>
+    <message name="findCustomerByFirstnameResponse"/>
+    <message name="findCustomerByLastname"/>
+    <message name="findCustomerByLastnameResponse"/>
+    <message name="insertNewCustomer"/>
+    <message name="insertNewCustomerResponse"/>
+    <portType name="MyFirstWebService">
+        <operation name="hello">
+            <input message="tns:hello"/>
+            <output message="tns:helloResponse"/>
+        </operation>
+        <operation name="findCustomerByFirstname">
+            <input message="tns:findCustomerByFirstname"/>
+            <output message="tns:findCustomerByFirstnameResponse"/>
+        </operation>
+        <operation name="findCustomerByLastname">
+            <input message="tns:findCustomerByLastname"/>
+            <output message="tns:findCustomerByLastnameResponse"/>
+        </operation>
+        <operation name="insertNewCustomer">
+            <input message="tns:insertNewCustomer"/>
+            <output message="tns:insertNewCustomerResponse"/>
+        </operation>
+    </portType>
+    <binding name="MyFirstWebServicePortBinding" type="tns:MyFirstWebService">
+        <wsp:PolicyReference URI="#MyFirstWebServicePortBindingPolicy"/>
+        <operation name="hello">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="findCustomerByFirstname">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="findCustomerByLastname">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="insertNewCustomer">
+            <input/>
+            <output/>
+        </operation>
+    </binding>
+    <service name="MyFirstWebService">
+        <port name="MyFirstWebServicePort" binding="tns:MyFirstWebServicePortBinding"/>
+    </service>
+    <wsp:Policy wsu:Id="MyFirstWebServicePortBindingPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All/>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="MyFirstWebServicePortBinding_findCustomerByCustomerID_Input_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:EncryptedParts>
+                    <sp:Body/>
+                </sp:EncryptedParts>
+                <sp:SignedParts>
+                    <sp:Body/>
+                </sp:SignedParts>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="MyFirstWebServicePortBinding_findCustomerByCustomerID_Output_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:EncryptedParts>
+                    <sp:Body/>
+                </sp:EncryptedParts>
+                <sp:SignedParts>
+                    <sp:Body/>
+                </sp:SignedParts>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</definitions>
